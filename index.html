@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directorio Digital | Hampton by Hilton</title>
+    <!-- Iconos de Material Design -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <!-- Fuente Corporativa similar (Montserrat) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        // Función CRÍTICA para manejar imágenes rotas
+        // Si una imagen falla, esta función la oculta y muestra el texto del nombre
+        function imgError(image) {
+            image.style.display = "none";
+            var fallback = image.nextElementSibling;
+            if (fallback) {
+                fallback.style.display = "block";
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            /* Paleta de colores Hampton by Hilton */
+            --brand-red: #D31145; 
+            --brand-blue: #002C5F;
+            --brand-gray: #f4f4f4;
+            --text-main: #333;
+            --text-light: #555;
+            --white: #fff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--brand-gray);
+            color: var(--text-main);
+            margin: 0;
+            padding-bottom: 100px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--white);
+            color: var(--brand-blue);
+            padding: 20px 20px 30px;
+            text-align: center;
+            border-bottom: 6px solid var(--brand-red);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .header-logo {
+            max-width: 180px;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        
+        header p { 
+            margin: 5px 0 0; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            letter-spacing: 0.5px;
+            color: var(--brand-blue);
+            text-transform: uppercase;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- TARJETA WI-FI --- */
+        .wifi-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            position: relative;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+        
+        .wifi-card::before {
+            content: "";
+            position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+            background: var(--brand-red);
+        }
+
+        .wifi-title {
+            color: var(--brand-blue); 
+            font-size: 1.3rem; 
+            font-weight: 700;
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+        }
+
+        .wifi-box {
+            background-color: #f0f4f8; 
+            border: 2px dashed var(--brand-blue);
+            border-radius: 12px; 
+            padding: 20px; 
+            margin: 15px 0;
+        }
+
+        .wifi-code {
+            font-family: 'Courier New', monospace; 
+            font-size: 2.2rem;
+            font-weight: 800; 
+            color: var(--brand-red); 
+            letter-spacing: 2px; 
+            display: block;
+            margin-top: 5px;
+        }
+
+        .wifi-instructions {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* --- ACORDEONES --- */
+        details {
+            background: var(--white); 
+            border-radius: 12px; 
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        summary {
+            padding: 20px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            color: var(--brand-blue);
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            list-style: none; 
+            transition: background 0.2s;
+            font-size: 1.1rem;
+        }
+
+        summary:hover { background-color: #fcfcfc; }
+        summary:active { background-color: #f0f0f0; }
+        summary::-webkit-details-marker { display: none; }
+        
+        summary::after { 
+            content: '+'; 
+            font-size: 1.5rem; 
+            color: var(--brand-red); 
+            font-weight: 300;
+        }
+        
+        details[open] summary::after { content: '-'; }
+        details[open] summary { border-bottom: 1px solid #f0f0f0; }
+
+        .content { 
+            padding: 20px; 
+            color: var(--text-light); 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+        }
+
+        .icon-header { display: flex; align-items: center; gap: 12px; }
+
+        h3 { color: var(--brand-blue); margin-top: 0; font-size: 1.1rem; }
+        h4 { color: var(--brand-red); margin: 15px 0 5px; font-size: 0.95rem; text-transform: uppercase;}
+        p { margin-bottom: 15px; }
+        strong { color: var(--text-main); }
+
+        /* --- SEMÁFORO DESAYUNO --- */
+        .traffic-light {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid #eee;
+        }
+        .traffic-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+        }
+        .time-label { width: 100px; font-weight: 600; font-size: 0.8rem; }
+        .bar-container { flex-grow: 1; height: 10px; background: #e0e0e0; border-radius: 5px; margin: 0 10px; overflow: hidden; }
+        .bar { height: 100%; border-radius: 5px; }
+        .status-heavy { background: #ef5350; width: 90%; }
+        .status-moderate { background: #ffca28; width: 60%; }
+        .status-light { background: #66bb6a; width: 30%; }
+        .status-text { width: 60px; text-align: right; font-size: 0.75rem; color: #777; }
+
+        /* --- GUÍA DE CANALES (GRID MEJORADO) --- */
+        .channel-search-container {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .channel-search {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+        }
+        .channel-search:focus { border-color: var(--brand-blue); }
+
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+        }
+
+        .channel-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 10px 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 130px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .channel-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--brand-blue);
+        }
+
+        .ch-logo-container {
+            height: 60px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .ch-logo-img {
+            max-width: 90%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .ch-name-fallback {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #555;
+            text-align: center;
+            display: none; 
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .ch-number {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--brand-blue);
+            background: #f0f4f8;
+            padding: 3px 12px;
+            border-radius: 15px;
+            margin-top: auto;
+        }
+        
+        .search-text { display: none; }
+
+        /* --- BOTÓN FLOTANTE --- */
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .fab-btn {
+            background-color: var(--brand-red);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(211, 17, 69, 0.4);
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .fab-btn:hover { transform: scale(1.1); }
+        .fab-label {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            pointer-events: none;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+            padding: 30px 20px;
+        }
+        
+        .info-box {
+            border-left: 4px solid var(--brand-blue);
+            background: #eef4fb;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://1000logos.net/wp-content/uploads/2020/10/Hampton-Inn-Logo.png" alt="Hampton by Hilton Logo" class="header-logo">
+        <p>Directorio de Servicios & Huéspedes</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. INTERNET / WIFI -->
+        <div class="wifi-card">
+            <div class="wifi-title">
+                <span class="material-icons-outlined">wifi</span>
+                WI-FI GRATIS
+            </div>
+            <p style="margin:0;">Red: <strong>Hilton Honors</strong></p>
+            <div class="wifi-box">
+                <span style="font-size:0.8rem; text-transform:uppercase; color:#555;">Código de Acceso / Password</span>
+                <span class="wifi-code">CUUMX1</span>
+            </div>
+            <div class="wifi-instructions">
+                Seleccione únicamente: <strong>"Acceso con Clave"</strong>
+            </div>
+        </div>
+
+        <!-- 2. DESAYUNO -->
+        <details open>
+            <summary>
+                <div class="icon-header">
+                    <span class="material-icons-outlined">restaurant_menu</span>
+                    Desayuno / Breakfast
+                </div>
+            </summary>
+            <div class="content">
+                <p>Comience cada día con nuestro <strong>desayuno ejecutivo tipo americano en cortesía</strong>.</p>
+                <div class="info-box">
+                    <strong>Horario:</strong> Lunes a Domingo, 6:00 a.m. - 10:00 a.m.
+                </div>
+                
+                <p style="font-size:0.9rem; margin-bottom:5px;"><strong>Semáforo de Ocupación:</strong></p>
+                <div class="traffic-light">
+                    <div class="traffic-row">
+                        <span class="time-label">06:00 - 08:00</span>
+                        <div class="bar-container"><div class="bar status-heavy"></div></div>
+                        <span class="status-text">Pesado</span>
+                    </div>
+                    <div class="traffic-row">
+                        <span class="time-label">08:00 - 09:00</span>
+                        <div class="bar-container"><div class="bar status-moderate"></div></div>
+                        <span class="status-text">Fluido</span>
+                    </div>
+                    <div class="traffic-row">
+                        <span class="time-label">09:00 - 10:00</span>
+                        <div class="bar-container"><div class="bar status-light"></div></div>
+                        <span class="status-text">Libre</span>
+                    </div>
+                </div>
+                
+                <h4>Snack 24/7</h4>
+                <p>Contamos con variedad de refrigerios disponible en nuestra área de snacks a un costado de recepción.</p>
+            </div>
+        </details>
+
+        <!-- 3. GUÍA DE CANALES (LISTA PERSONALIZADA) -->
+        <details>
+            <summary>
+                <div class="icon-header">
+                    <span class="material-icons-outlined">tv</span>
+                    Guía de Canales
+                </div>
+            </summary>
+            <div class="content">
+                <div class="channel-search-container">
+                    <input type="text" id="channelSearch" class="channel-search" placeholder="🔍 Buscar canal..." onkeyup="filterChannels()">
+                </div>
+                
+                <div class="channel-grid" id="channelGrid">
+                    
+                    <!-- 14: LAS ESTRELLAS -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Canal_de_las_Estrellas_logo.svg/960px-Canal_de_las_Estrellas_logo.svg.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Las Estrellas">
+                            <div class="ch-name-fallback">Las Estrellas</div>
+                        </div>
+                        <span class="ch-number">14</span>
+                        <span class="search-text">Las Estrellas</span>
+                    </div>
+
+                    <!-- 15: CANAL 5 -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Canal_5_Mexico_logo_2014.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Canal 5">
+                            <div class="ch-name-fallback">Canal 5</div>
+                        </div>
+                        <span class="ch-number">15</span>
+                        <span class="search-text">Canal 5 Televisa</span>
+                    </div>
+
+                    <!-- 16: AZTECA 7 -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Logo_Azteca_7_2011.svg/960px-Logo_Azteca_7_2011.svg.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Azteca 7">
+                            <div class="ch-name-fallback">Azteca 7</div>
+                        </div>
+                        <span class="ch-number">16</span>
+                        <span class="search-text">Azteca 7</span>
+                    </div>
+
+                    <!-- 17: AZTECA 1 -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://static.wikia.nocookie.net/tv-azteca/images/9/98/Uno.png/revision/latest?cb=20200323172904&path-prefix=es" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Azteca 1">
+                            <div class="ch-name-fallback">Azteca 1</div>
+                        </div>
+                        <span class="ch-number">17</span>
+                        <span class="search-text">Azteca 1</span>
+                    </div>
+
+                    <!-- 18: CANAL 11 -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_Actual_Canal_Once.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Canal 11">
+                            <div class="ch-name-fallback">Canal 11</div>
+                        </div>
+                        <span class="ch-number">18</span>
+                        <span class="search-text">Canal 11</span>
+                    </div>
+
+                    <!-- 19: Star Chanel -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Star_Channel_2023.svg/1280px-Star_Channel_2023.svg.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Star Channel">
+                            <div class="ch-name-fallback">Star Channel</div>
+                        </div>
+                        <span class="ch-number">19</span>
+                        <span class="search-text">Star Channel</span>
+                    </div>
+
+                    <!-- 20: SONY -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Sony_Channel_Logo_2019.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Sony">
+                            <div class="ch-name-fallback">Sony</div>
+                        </div>
+                        <span class="ch-number">20</span>
+                        <span class="search-text">Sony</span>
+                    </div>
+
+                    <!-- 21: WARNER -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Warner2018LA.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Warner">
+                            <div class="ch-name-fallback">Warner</div>
+                        </div>
+                        <span class="ch-number">21</span>
+                        <span class="search-text">Warner</span>
+                    </div>
+
+                    <!-- 22: FX -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://pbs.twimg.com/media/FPSMczbVkAAUfTQ.jpg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="FX">
+                            <div class="ch-name-fallback">FX</div>
+                        </div>
+                        <span class="ch-number">22</span>
+                        <span class="search-text">FX</span>
+                    </div>
+
+                    <!-- 23: UNIVERSAL -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Universal_TV_2018.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Universal">
+                            <div class="ch-name-fallback">Universal</div>
+                        </div>
+                        <span class="ch-number">23</span>
+                        <span class="search-text">Universal Chanel</span>
+                    </div>
+
+                    <!-- 24: LIFE TIME -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://www.vhv.rs/dpng/d/524-5243808_lifetime-tv-channel-logo-png-lifetime-channel-logo.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Lifetime">
+                            <div class="ch-name-fallback">Lifetime</div>
+                        </div>
+                        <span class="ch-number">24</span>
+                        <span class="search-text">Life Time</span>
+                    </div>
+
+                    <!-- 25: TURBO -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Discovery_Turbo_logo.svg/1280px-Discovery_Turbo_logo.svg.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Turbo">
+                            <div class="ch-name-fallback">Turbo</div>
+                        </div>
+                        <span class="ch-number">25</span>
+                        <span class="search-text">Turbo</span>
+                    </div>
+
+                    <!-- 26: AXN -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://e7.pngegg.com/pngimages/842/991/png-clipart-axn-television-channel-pay-television-logo-others-miscellaneous-television.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="AXN">
+                            <div class="ch-name-fallback">AXN</div>
+                        </div>
+                        <span class="ch-number">26</span>
+                        <span class="search-text">AXN</span>
+                    </div>
+
+                    <!-- 27: HISTORY -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/History_Logo.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="History">
+                            <div class="ch-name-fallback">History</div>
+                        </div>
+                        <span class="ch-number">27</span>
+                        <span class="search-text">History Chanel</span>
+                    </div>
+
+                    <!-- 28: H2 -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/History2_logo_%282022%29.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="H2">
+                            <div class="ch-name-fallback">H2</div>
+                        </div>
+                        <span class="ch-number">28</span>
+                        <span class="search-text">H2</span>
+                    </div>
+
+                    <!-- 29: DISCOVERY -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://images.seeklogo.com/logo-png/4/1/discovery-channel-logo-png_seeklogo-41901.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Discovery">
+                            <div class="ch-name-fallback">Discovery</div>
+                        </div>
+                        <span class="ch-number">29</span>
+                        <span class="search-text">Discovery</span>
+                    </div>
+
+                    <!-- 30: ENTERTAINMENT (ENTRETEIMENT) -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAs_1jVcZ6fA46DuVtcBSuwyWJjbcrkL4r4w&s" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="E! Entertainment">
+                            <div class="ch-name-fallback">E!</div>
+                        </div>
+                        <span class="ch-number">30</span>
+                        <span class="search-text">Entreteiment</span>
+                    </div>
+
+                    <!-- 31: HBO 2 -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/HBO2_logo.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO 2">
+                            <div class="ch-name-fallback">HBO 2</div>
+                        </div>
+                        <span class="ch-number">31</span>
+                        <span class="search-text">HBO 2</span>
+                    </div>
+
+                    <!-- 32: HBO -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/HBO_logo.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO">
+                            <div class="ch-name-fallback">HBO</div>
+                        </div>
+                        <span class="ch-number">32</span>
+                        <span class="search-text">HBO</span>
+                    </div>
+
+                    <!-- 34: HBO PLUS -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/HBO_Plus.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO Plus">
+                            <div class="ch-name-fallback">HBO Plus</div>
+                        </div>
+                        <span class="ch-number">34</span>
+                        <span class="search-text">HBO Plus</span>
+                    </div>
+
+                    <!-- 35: HBO SIGNATURE -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/HBO_Signature.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO Signature">
+                            <div class="ch-name-fallback">HBO Sig</div>
+                        </div>
+                        <span class="ch-number">35</span>
+                        <span class="search-text">HBO Signature</span>
+                    </div>
+
+                    <!-- 36: HBO FAMILY -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/HBO_Family_logo.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO Family">
+                            <div class="ch-name-fallback">HBO Fam</div>
+                        </div>
+                        <span class="ch-number">36</span>
+                        <span class="search-text">HBO Family</span>
+                    </div>
+
+                    <!-- 37: HBO MUNDY -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbAXp130AYAc4pXI_m-PqxrYip5VQCNRfUVA&s" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO Mundy">
+                            <div class="ch-name-fallback">HBO Mundy</div>
+                        </div>
+                        <span class="ch-number">37</span>
+                        <span class="search-text">HBO Mundy</span>
+                    </div>
+
+                    <!-- 38: HBO EXTREME -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUGbj613doA_lyYhNByuF0DRhIk9yKSfzkLA&s" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO Extreme">
+                            <div class="ch-name-fallback">HBO Ext</div>
+                        </div>
+                        <span class="ch-number">38</span>
+                        <span class="search-text">HBO Extreme</span>
+                    </div>
+
+                    <!-- 39: HBO POP -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0FhNUxlMyYp_u6f5ukXD7PSp9t5s50OYfYQ&s" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="HBO Pop">
+                            <div class="ch-name-fallback">HBO Pop</div>
+                        </div>
+                        <span class="ch-number">39</span>
+                        <span class="search-text">HBO Pop</span>
+                    </div>
+
+                    <!-- 40: CINE MAX -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Cinemax_LA.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Cinemax">
+                            <div class="ch-name-fallback">Cinemax</div>
+                        </div>
+                        <span class="ch-number">40</span>
+                        <span class="search-text">Cine Max</span>
+                    </div>
+
+                    <!-- 41: SPACE -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/SpaceLogo.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Space">
+                            <div class="ch-name-fallback">Space</div>
+                        </div>
+                        <span class="ch-number">41</span>
+                        <span class="search-text">Space</span>
+                    </div>
+
+                    <!-- 42: TNT -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoCm97ocaTMAqgHS_WCP1A0OvwF0RTJWoV1g&s" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="TNT">
+                            <div class="ch-name-fallback">TNT</div>
+                        </div>
+                        <span class="ch-number">42</span>
+                        <span class="search-text">TNT</span>
+                    </div>
+
+                    <!-- 43: DISNEY -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/2014_Disney_Channel_logo.svg/1280px-2014_Disney_Channel_logo.svg.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Disney">
+                            <div class="ch-name-fallback">Disney</div>
+                        </div>
+                        <span class="ch-number">43</span>
+                        <span class="search-text">Disney</span>
+                    </div>
+
+                    <!-- 44: DISNEY JR -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/2017_Disney_Junior_logo.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Disney Jr">
+                            <div class="ch-name-fallback">Disney Jr</div>
+                        </div>
+                        <span class="ch-number">44</span>
+                        <span class="search-text">Disney Jr</span>
+                    </div>
+
+                    <!-- 45: ESPN -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://1000marcas.net/wp-content/uploads/2020/02/ESPN-logo.jpg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="ESPN">
+                            <div class="ch-name-fallback">ESPN</div>
+                        </div>
+                        <span class="ch-number">45</span>
+                        <span class="search-text">ESPN</span>
+                    </div>
+
+                    <!-- 46: ESPN 2 -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/ESPN2_logo.svg/1280px-ESPN2_logo.svg.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="ESPN 2">
+                            <div class="ch-name-fallback">ESPN 2</div>
+                        </div>
+                        <span class="ch-number">46</span>
+                        <span class="search-text">ESPN 2</span>
+                    </div>
+
+                    <!-- 48: FOX SPORT -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Logo_fox_sports_2012.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Fox Sport">
+                            <div class="ch-name-fallback">Fox Sport</div>
+                        </div>
+                        <span class="ch-number">48</span>
+                        <span class="search-text">Fox Sport</span>
+                    </div>
+
+                    <!-- 49: SKY SPORT -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://logodownload.org/wp-content/uploads/2020/06/sky-sports-logo-5.png" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="Sky Sport">
+                            <div class="ch-name-fallback">Sky Sport</div>
+                        </div>
+                        <span class="ch-number">49</span>
+                        <span class="search-text">Sky Sport</span>
+                    </div>
+
+                    <!-- 50: CNN INGLES -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="CNN Ingles">
+                            <div class="ch-name-fallback">CNN</div>
+                        </div>
+                        <span class="ch-number">50</span>
+                        <span class="search-text">CNN Ingles</span>
+                    </div>
+
+                    <!-- 52: CNN ESPAÑOL -->
+                    <div class="channel-card">
+                        <div class="ch-logo-container">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd0akMc6ymYfPIlhAjV8IeTBgMteOwoW01Zw&s" class="ch-logo-img" onerror="imgError(this)" referrerpolicy="no-referrer" alt="CNN Español">
+                            <div class="ch-name-fallback">CNN Esp</div>
+                        </div>
+                        <span class="ch-number">52</span>
+                        <span class="search-text">CNN Español</span>
+                    </div>
+
+                </div>
+            </div>
+        </details>
+
+        <!-- 4. SERVICIOS OPERATIVOS -->
+        <details>
+            <summary>
+                <div class="icon-header">
+                    <span class="material-icons-outlined">room_service</span>
+                    Servicios al Huésped
+                </div>
+            </summary>
+            <div class="content">
+                <h4>Check-Out / Salida</h4>
+                <p>El horario de salida es a las <strong>12:00 pm</strong>. Si necesita extender su estancia, comuníquese con recepción <a href="tel:4398000" style="color:var(--brand-red); text-decoration:none; font-weight:700;">(4398000)</a>.</p>
+
+                <h4>Centro de Negocios</h4>
+                <p>Abierto 24/7. Ofrecemos servicio de computadora, impresora, copiadora y fax.</p>
+
+                <h4>Gimnasio (Fitness Room)</h4>
+                <p>Equipos cardio-aeróbicos y de pesas. Abierto 6:00 a.m. a Medianoche todos los días.</p>
+
+                <h4>Piscina (Pool)</h4>
+                <p>Al aire libre. Abierta 7:00 a.m. a 22:00 p.m. todos los días.</p>
+
+                <h4>Máquinas de Hielo</h4>
+                <p>Ubicadas en Pisos 2, 3 y 4 (Planta Baja cuenta con 1) a un costado de los elevadores.</p>
+
+                <h4>Lavandería de Autoservicio</h4>
+                <p>Ubicada en Planta Baja. Las fichas/monedas se compran en recepción.</p>
+
+                <h4>Tintorería / Valet</h4>
+                <p>Lunes a Viernes. Entregue en recepción antes de las 9:00 a.m. para recibir el mismo día (20:30 p.m.).</p>
+
+                <h4>Ama de Llaves</h4>
+                <p>Solicite artículos especiales: cunas, camas plegables, almohadas extra, mantas o perchas marcando 0.</p>
+            </div>
+        </details>
+
+        <!-- 5. SEGURIDAD Y EMERGENCIAS -->
+        <details>
+            <summary>
+                <div class="icon-header">
+                    <span class="material-icons-outlined">security</span>
+                    Seguridad y Emergencias
+                </div>
+            </summary>
+            <div class="content">
+                <div class="info-box" style="border-color: red; background: #fff5f5;">
+                    <strong>EMERGENCIAS / FUEGO:</strong> Marque <strong>911</strong> o consulte el mapa de evacuación detrás de su puerta.
+                </div>
+
+                <h4>Seguridad en la Habitación</h4>
+                <p>Utilice el cerrojo de seguridad y el giratorio. Use la mirilla antes de abrir. Si tiene dudas sobre la identidad de alguien, llame a recepción (0). Utilice las cajas de seguridad en recepción para valores.</p>
+
+                <h4>Privacidad</h4>
+                <p>Su información es confidencial. No transferimos llamadas a habitaciones por privacidad. Realizamos inspección visual cada 24 horas por su bienestar.</p>
+
+                <h4>Llaves de Habitación</h4>
+                <p>Lleve su tarjeta siempre. Si la pierde, notifique a recepción. Se requiere identificación oficial y cuenta al corriente para reposición.</p>
+
+                <h4>Hospital</h4>
+                <p><strong>Hospital Angeles:</strong> <a href="tel:+525544392700">+52 55 44 39 27 00</a></p>
+            </div>
+        </details>
+
+        <!-- 6. TRANSPORTE Y ATRACCIONES -->
+        <details>
+            <summary>
+                <div class="icon-header">
+                    <span class="material-icons-outlined">directions_car</span>
+                    Transporte y Área Local
+                </div>
+            </summary>
+            <div class="content">
+                <h4>Transporte Gratuito</h4>
+                <p>A diferentes puntos de la ciudad. Completamente gratis. Solicite disponibilidad en Front Desk.</p>
+
+                <h4>Taxis Seguros</h4>
+                <p>Base de taxis segura con tarifa especial para huéspedes. Solicítelo marcando 0.</p>
+
+                <h4>Atracciones del Área</h4>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Plazas Comerciales:</strong> Restaurantes y tiendas a pocos minutos.</li>
+                    <li><strong>Grutas Nombre de Dios:</strong> A 9.7 km.</li>
+                    <li><strong>Campos Menonitas (Cuauhtémoc):</strong> A 77 km. Comida tradicional.</li>
+                    <li><strong>Creel (Pueblo Mágico):</strong> Sierra de Chihuahua, a 257 km.</li>
+                </ul>
+            </div>
+        </details>
+
+        <!-- 7. OTROS SERVICIOS -->
+        <details>
+            <summary>
+                <div class="icon-header">
+                    <span class="material-icons-outlined">info</span>
+                    Información General
+                </div>
+            </summary>
+            <div class="content">
+                <p><strong>Reservaciones Anticipadas:</strong> Marque 0 o llame al 614 4 39 80 00.</p>
+                <p><strong>Objetos Extraviados:</strong> Llame a Ama de Llaves (Lun-Sab 8am-5pm) marcando 0.</p>
+                <p><strong>Correo / Mail:</strong> Recepción.</p>
+                <p><strong>Gerente de Turno:</strong> Disponible 24 horas. Contacte Servicios al Huésped.</p>
+            </div>
+        </details>
+
+    </div>
+
+    <footer>
+        <p><strong>Hampton by Hilton Chihuahua</strong><br>
+        Tel: 614 439 80 00</p>
+        <p style="font-size: 0.7rem; margin-top: 10px;">&copy; 2026. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE LLAMADA -->
+    <div class="fab-container">
+        <div class="fab-label">Marcar a Recepción</div>
+        <a href="tel:4398000" class="fab-btn">
+            <span class="material-icons-outlined" style="font-size: 30px;">support_agent</span>
+        </a>
+    </div>
+
+    <script>
+        function filterChannels() {
+            var input, filter, grid, cards, name, i, txtValue;
+            input = document.getElementById("channelSearch");
+            filter = input.value.toUpperCase();
+            grid = document.getElementById("channelGrid");
+            cards = grid.getElementsByClassName("channel-card");
+
+            for (i = 0; i < cards.length; i++) {
+                // Buscamos en el texto oculto de búsqueda
+                var searchSpan = cards[i].getElementsByClassName("search-text")[0];
+                if (searchSpan) {
+                    txtValue = searchSpan.textContent || searchSpan.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "flex";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+    </script>
+</body>
+</html>
